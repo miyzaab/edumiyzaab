@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap"
+        rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar – miyzaab edu</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/dark.css">
+</head>
+
+<body data-page="register">
+
+    <!-- AUTO NAVBAR (SATU-SATUNYA) -->
+    <div id="navbar"></div>
+
+    <!-- REGISTER -->
+    <main class="auth-container">
+        <div class="auth-card">
+            <h2>Daftar Akun</h2>
+            <p class="auth-desc">Buat akun baru untuk mulai belajar</p>
+
+            <form id="registerForm">
+                <label>Nama Lengkap</label>
+                <input type="text" placeholder="Fulan bin Fulan" required>
+
+                <label>Email</label>
+                <input type="email" placeholder="email@email.com" required>
+
+                <label>Password</label>
+                <input type="password" placeholder="••••••••" required>
+
+                <button type="submit" class="btn-primary full">Daftar</button>
+            </form>
+
+            <p class="auth-footer">
+                Sudah punya akun?
+                <a href="login.html">Masuk</a>
+            </p>
+        </div>
+    </main>
+
+    <!-- SCRIPT (WAJIB DI SINI) -->
+    <script src="js/navbar.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

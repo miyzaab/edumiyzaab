@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap"
+    rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masuk – miyzaab edu</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dark.css">
+</head>
+
+<body data-page="login">
+
+  <!-- AUTO NAVBAR (SATU-SATUNYA) -->
+  <div id="navbar"></div>
+
+  <!-- LOGIN -->
+  <main class="auth-container">
+    <div class="auth-card">
+      <h2>Masuk Akun</h2>
+      <p class="auth-desc">Silakan masuk untuk melanjutkan belajar</p>
+
+      <form id="loginForm">
+        <label>Email</label>
+        <input type="email" placeholder="email@email.com" required>
+
+        <label>Password</label>
+        <input type="password" placeholder="••••••••" required>
+
+        <button type="submit" class="btn-primary full">Masuk</button>
+      </form>
+
+      <p class="auth-footer">
+        Belum punya akun?
+        <a href="register.html">Daftar</a>
+      </p>
+    </div>
+  </main>
+
+  <!-- SCRIPT (WAJIB DI SINI) -->
+  <script src="js/navbar.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,225 @@
+/* Dark Mode specific overrides */
+
+body.dark {
+  --gray-50: #0f172a;
+  --gray-100: #1e293b;
+  --gray-200: #334155;
+  --gray-800: #f3f4f6;
+  --white: #1e293b;
+  --primary-light: #064e3b;
+
+  background: var(--gray-50);
+  color: var(--gray-800);
+}
+
+body.dark .navbar {
+  background: rgba(15, 23, 42, 0.85);
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark .menu a {
+  color: var(--gray-800);
+}
+
+body.dark #themeToggle:hover {
+  background: var(--gray-200);
+}
+
+body.dark .card,
+body.dark .auth-card,
+body.dark .audio-card,
+body.dark .quiz-card {
+  background: var(--white);
+  border-color: var(--gray-200);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+}
+
+body.dark .card h3 {
+  color: var(--gray-800);
+}
+
+body.dark input {
+  background: var(--gray-50);
+  color: white;
+  border-color: var(--gray-200);
+}
+
+body.dark input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+body.dark .hero {
+  background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);
+  color: white;
+}
+
+body.dark .hero h1 {
+  color: white;
+}
+
+body.dark .hero p {
+  color: #d1d5db;
+}
+
+body.dark .hero::before {
+  background: #059669;
+  opacity: 0.3;
+}
+
+body.dark .hero::after {
+  background: #1e3a8a;
+  opacity: 0.3;
+}
+
+body.dark .btn-secondary {
+  color: white;
+  border-color: var(--gray-200);
+}
+
+body.dark .btn-secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+body.dark .article-content {
+  color: #d1d5db;
+}
+
+body.dark .article-content h1 {
+  color: white;
+}
+
+body.dark .article-content .lead {
+  color: #9ca3af;
+}
+
+body.dark blockquote {
+  background: rgba(6, 78, 59, 0.3);
+  color: #34d399;
+}
+
+body.dark .section-header h2 {
+  color: white;
+}
+
+body.dark .article-card {
+  background: var(--white);
+  border-color: var(--gray-200);
+}
+
+body.dark .article-body h3 {
+  color: var(--gray-800);
+}
+
+body.dark .article-body p {
+  color: #9ca3af;
+}
+
+body.dark .article-meta {
+  color: #6b7280;
+}
+
+body.dark .main-player-wrapper h1 {
+  color: white;
+}
+
+body.dark .playlist-section h3 {
+  color: var(--gray-200);
+}
+
+body.dark .playlist-item {
+  background: var(--white);
+  border-color: var(--gray-200);
+}
+
+body.dark .playlist-item h4 {
+  color: white;
+}
+
+body.dark .playlist-sidebar {
+  background: var(--game-dark);
+  /* or generic dark bg */
+  border-color: var(--gray-800);
+}
+
+body.dark .playlist-header h3 {
+  color: white;
+}
+
+body.dark .audio-item {
+  border-color: var(--gray-800);
+}
+
+body.dark .audio-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark .audio-item h4 {
+  color: white;
+}
+
+body.dark .audio-item p {
+  color: var(--gray-400);
+}
+
+body.dark .badge {
+  background: var(--gray-800);
+  color: white;
+}
+
+/* Footer & Newsletter Dark Mode */
+body.dark .footer {
+  background: var(--game-dark);
+  border-color: var(--gray-800);
+}
+
+body.dark .footer-brand h3 {
+  color: white;
+}
+
+body.dark .footer-links h4,
+body.dark .footer-social h4 {
+  color: white;
+}
+
+body.dark .footer-links a,
+body.dark .social-icons a,
+body.dark .footer-brand p {
+  color: var(--gray-400);
+}
+
+body.dark .social-icons a {
+  background: var(--gray-800);
+}
+
+body.dark .social-icons a:hover {
+  background: var(--primary);
+  color: white;
+}
+
+body.dark .footer-bottom {
+  border-color: var(--gray-800);
+  color: var(--gray-500);
+}
+
+/* Quiz Dark Mode */
+body.dark .quiz-question {
+  color: white;
+}
+
+body.dark .option-content {
+  background: var(--gray-800);
+  color: var(--gray-200);
+  border-color: var(--gray-700);
+}
+
+body.dark .quiz-option:hover .option-content {
+  background: var(--gray-700);
+}
+
+body.dark .quiz-option input:checked+.option-content {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: var(--primary);
+  color: var(--primary-light);
+}
