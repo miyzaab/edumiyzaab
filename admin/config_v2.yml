@@ -11,6 +11,7 @@ collections:
       - name: "article_data"
         label: "Data Artikel"
         file: "data/articles.json"
+        format: json
         fields:
           - label: "Daftar Artikel"
             name: "articles"
