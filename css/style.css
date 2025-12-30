@@ -135,16 +135,16 @@ body {
 }
 
 /* HERO */
-.hero {
-  padding: 8rem 2rem 6rem;
-  text-align: center;
+
+/* PAGE BACKGROUND (Shared) */
+.page-background {
   background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
-  color: var(--gray-800);
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
-.hero::before {
+.page-background::before {
   content: '';
   position: absolute;
   top: -50px;
@@ -156,21 +156,46 @@ body {
   filter: blur(80px);
   opacity: 0.6;
   z-index: 0;
+  pointer-events: none;
+  animation: blobFloat 8s infinite ease-in-out alternate;
 }
 
-.hero::after {
+.page-background::after {
   content: '';
   position: absolute;
-  bottom: -50px;
+  bottom: 0;
   left: -50px;
   width: 250px;
   height: 250px;
   background: #bfdbfe;
-  /* Slight blue tint */
   border-radius: 50%;
   filter: blur(80px);
   opacity: 0.5;
   z-index: 0;
+  pointer-events: none;
+  animation: blobFloat 10s infinite ease-in-out alternate-reverse;
+}
+
+@keyframes blobFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+}
+
+/* HERO (Inherits or uses specific styles, here we keep it simple for index) */
+.hero {
+  padding: 8rem 2rem 6rem;
+  text-align: center;
+  /* background handled by parent or specific override if needed, 
+     but for now let's keep hero specific if it differs, or make hero use page-background */
+  background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
+  color: var(--gray-800);
+  position: relative;
+  overflow: hidden;
 }
 
 .hero h1 {
@@ -227,4 +252,29 @@ body {
 body.dark .navbar.scrolled {
   background: rgba(31, 41, 55, 0.95);
   border-bottom-color: var(--gray-800);
+}
+
+/* MOBILE OPTIMIZATIONS */
+@media (max-width: 768px) {
+  .hero {
+    padding: 6rem 1rem 4rem !important;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem !important;
+  }
+
+  .hero p {
+    font-size: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .features {
+    padding: 3rem 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
 }

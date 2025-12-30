@@ -25,7 +25,7 @@
 
   <!-- SCORE -->
   <main class="quiz-container">
-    <div class="quiz-card">
+    <div class="quiz-card" style="max-width: 600px;"> <!-- Wider card for review -->
       <h2>Hasil Quiz</h2>
 
       <div class="score-display">
@@ -35,9 +35,110 @@
         <p>Skor Anda</p>
       </div>
 
+      <!-- Review Section -->
+      <div id="reviewContainer" class="review-container">
+        <!-- JS Injected -->
+      </div>
+
       <a href="quiz.html" class="btn-primary full">Ulangi Quiz</a>
     </div>
   </main>
+
+  <style>
+    /* Inline CSS for Score Page specific elements */
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: conic-gradient(var(--primary) 0%, #e5e7eb 0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      position: relative;
+    }
+
+    .score-circle::before {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: white;
+      /* Cutout */
+      border-radius: 50%;
+    }
+
+    /* Dark mode cutout override */
+    body.dark .score-circle::before {
+      background: rgba(30, 41, 59, 1);
+      /* Should match card bg */
+    }
+
+    body.dark .score-circle {
+      color: white;
+      /* Fallback */
+    }
+
+    .score-circle span {
+      position: relative;
+      z-index: 2;
+    }
+
+    .review-container {
+      margin-top: 2rem;
+      text-align: left;
+    }
+
+    .review-container h3 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--gray-800);
+    }
+
+    .review-card {
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .review-card.correct {
+      border-left: 4px solid var(--primary);
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    .review-card.wrong {
+      border-left: 4px solid #ef4444;
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--gray-600);
+    }
+
+    .review-question {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--game-dark);
+    }
+
+    .review-answer {
+      font-size: 0.95rem;
+    }
+
+    .correct-answer {
+      color: var(--primary);
+      margin-top: 0.25rem;
+    }
+  </style>
 
   <!-- SCRIPT -->
   <script src="js/navbar.js"></script>

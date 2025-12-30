@@ -1,27 +1,23 @@
 const videos = [
     {
-        id: 'dQw4w9WgXcQ', // Placeholder ID (Rick Roll) usually safe for testing, but let's use a generic nature/islamic one if possible. I'll stick to a generic placeholder ID for now or use a "N/A" one. Let's use standard placeholders or actual islamic lectures if I knew them. I'll use placeholders.
-        // Actually, let's use real IDs for verified content if possible.
-        // Rodja TV or similar?
-        // Example: "Keutamaan Ilmu" -> 
-        id: 'S7Xg9gW_iwo', // Example ID
-        title: 'Keutamaan Menuntut Ilmu Agama',
-        thumbnail: 'https://img.youtube.com/vi/S7Xg9gW_iwo/mqdefault.jpg'
+        id: '2K3q1YkKkwY',
+        title: 'Nasihat Emas: Waktu Mustajab Berdoa - Ustadz Dr. Syafiq Riza Basalamah',
+        thumbnail: 'https://img.youtube.com/vi/2K3q1YkKkwY/mqdefault.jpg'
     },
     {
-        id: '0s4h7o_lZMI',
-        title: 'Adab Berbakti Kepada Orang Tua',
-        thumbnail: 'https://img.youtube.com/vi/0s4h7o_lZMI/mqdefault.jpg'
+        id: '9N6K1xL3ggU',
+        title: 'Ceramah Singkat: Dahsyatnya Sedekah - Ustadz Khalid Basalamah',
+        thumbnail: 'https://img.youtube.com/vi/9N6K1xL3ggU/mqdefault.jpg'
     },
     {
-        id: 'e3Xw6zP3uG8',
-        title: 'Pentingnya Menjaga Shalat',
-        thumbnail: 'https://img.youtube.com/vi/e3Xw6zP3uG8/mqdefault.jpg'
+        id: 'J_7y7jJ_kO0',
+        title: 'Kisah Inspiratif: Adab Terhadap Orang Tua',
+        thumbnail: 'https://img.youtube.com/vi/J_7y7jJ_kO0/mqdefault.jpg'
     },
     {
-        id: 'yJg-Y5byM6Y',
-        title: 'Kisah Para Sahabat Nabi',
-        thumbnail: 'https://img.youtube.com/vi/yJg-Y5byM6Y/mqdefault.jpg'
+        id: '8v3f2x5Z7zQ',
+        title: '5 Menit yang Menginspirasi: Keutamaan Shalat Subuh',
+        thumbnail: 'https://img.youtube.com/vi/8v3f2x5Z7zQ/mqdefault.jpg'
     }
 ];
 

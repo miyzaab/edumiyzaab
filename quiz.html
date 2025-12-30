@@ -15,7 +15,7 @@
   <script src="js/protect.js"></script>
 </head>
 
-<body data-page="quiz">
+<body data-page="quiz" class="page-background">
 
   <!-- AUTO NAVBAR (SATU-SATUNYA) -->
   <div id="navbar"></div>
@@ -23,47 +23,14 @@
   <!-- QUIZ -->
   <main class="quiz-container">
     <div class="quiz-card">
-      <h2>Quiz: Dasar Istiqamah</h2>
+      <h2>Quiz: Adab Menuntut Ilmu</h2>
 
       <form id="quizForm">
-
-        <div class="quiz-step animate-on-scroll">
-          <p class="quiz-question">1. Apa makna istiqamah?</p>
-          <div class="options-grid">
-            <label class="quiz-option">
-              <input type="radio" name="q1" value="0">
-              <span class="option-content">Semangat sesaat</span>
-            </label>
-            <label class="quiz-option">
-              <input type="radio" name="q1" value="1">
-              <span class="option-content">Konsisten di atas kebenaran</span>
-            </label>
-            <label class="quiz-option">
-              <input type="radio" name="q1" value="0">
-              <span class="option-content">Banyak amal tanpa ilmu</span>
-            </label>
-          </div>
+        <div id="questionsContainer">
+          <!-- JS Injected Here -->
         </div>
 
-        <div class="quiz-step animate-on-scroll">
-          <p class="quiz-question">2. Istiqamah paling dibutuhkan pada?</p>
-          <div class="options-grid">
-            <label class="quiz-option">
-              <input type="radio" name="q2" value="0">
-              <span class="option-content">Awal hijrah</span>
-            </label>
-            <label class="quiz-option">
-              <input type="radio" name="q2" value="1">
-              <span class="option-content">Sepanjang hayat</span>
-            </label>
-            <label class="quiz-option">
-              <input type="radio" name="q2" value="0">
-              <span class="option-content">Saat ramai saja</span>
-            </label>
-          </div>
-        </div>
-
-        <button type="submit" class="btn-primary full">Lihat Hasil</button>
+        <button type="submit" class="btn-primary full" style="margin-top: 2rem;">Lihat Hasil</button>
       </form>
     </div>
   </main>

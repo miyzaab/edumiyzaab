@@ -1,31 +1,31 @@
 const tracks = [
   {
-    title: 'Adab Penuntut Ilmu',
-    author: 'Ustadz Fulan',
-    src: 'assets/audio/sample.mp3', // Placeholder path
+    title: 'Hadits 1: Niat dan Ikhlas',
+    author: 'Ustadz Abdullah Roy',
+    src: 'assets/audio/sample.mp3',
     color: 'linear-gradient(135deg, #10b981, #059669)'
   },
   {
-    title: 'Keutamaan Sabar',
-    author: 'Ustadz Abdullah',
+    title: 'Hadits 2: Rukun Islam & Iman',
+    author: 'Ustadz Abdullah Roy',
     src: 'assets/audio/sample.mp3',
     color: 'linear-gradient(135deg, #3b82f6, #2563eb)'
   },
   {
-    title: 'Sirah Nabawiyah: Periode Mekkah',
-    author: 'Tim Miyzaab',
+    title: 'Hadits 3: Rukun Islam',
+    author: 'Ustadz Abdullah Roy',
     src: 'assets/audio/sample.mp3',
     color: 'linear-gradient(135deg, #f59e0b, #d97706)'
   },
   {
-    title: 'Tafsir Juz Amma',
-    author: 'Ustadz Abu Royhan',
+    title: 'Hadits 4: Takdir Manusia',
+    author: 'Ustadz Abdullah Roy',
     src: 'assets/audio/sample.mp3',
     color: 'linear-gradient(135deg, #8b5cf6, #7c3aed)'
   },
   {
-    title: '40 Hadits Arba\'in',
-    author: 'Ustadz Ahmad',
+    title: 'Hadits 5: Bid\'ah dalam Agama',
+    author: 'Ustadz Abdullah Roy',
     src: 'assets/audio/sample.mp3',
     color: 'linear-gradient(135deg, #ec4899, #db2777)'
   }
