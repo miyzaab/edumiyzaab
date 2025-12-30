@@ -277,4 +277,12 @@ body.dark .navbar.scrolled {
   .section-title {
     font-size: 1.75rem;
   }
+
+  /* Performance: Disable heavy animations */
+  .page-background::before,
+  .page-background::after {
+    animation: none !important;
+    filter: blur(40px);
+    /* Reduce blur radius */
+  }
 }

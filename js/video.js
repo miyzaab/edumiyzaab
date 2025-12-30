@@ -1,5 +1,10 @@
 const videos = [
     {
+        id: 'YhJseoHs6S4',
+        title: 'Kajian Kitab Riyadush Shalihin - Bab Ikhlas',
+        thumbnail: 'https://img.youtube.com/vi/YhJseoHs6S4/mqdefault.jpg'
+    },
+    {
         id: '2K3q1YkKkwY',
         title: 'Nasihat Emas: Waktu Mustajab Berdoa - Ustadz Dr. Syafiq Riza Basalamah',
         thumbnail: 'https://img.youtube.com/vi/2K3q1YkKkwY/mqdefault.jpg'

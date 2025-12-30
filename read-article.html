@@ -28,6 +28,7 @@
   </main>
 
   <script src="js/navbar.js"></script>
+  <script src="js/animations.js"></script>
   <script src="js/articles.js"></script>
   <script>
     // Logic to load article
@@ -35,28 +36,35 @@
     const id = parseInt(params.get('id'));
     const container = document.getElementById('articleContent');
 
-    // Find article
-    const article = articles.find(a => a.id === id);
+    async function loadArticleContent() {
+      // Fetch data
+      const articles = await getArticles();
 
-    if (article) {
-      document.title = `${article.title} – miyzaab edu`;
+      // Find article
+      const article = articles.find(a => a.id === id);
 
-      container.innerHTML = `
-            <div class="article-meta">
-                <span class="author">${article.author}</span> • <span class="date">${article.date}</span>
-                <a href="index.html" style="float: right; text-decoration: none; color: var(--primary);">← Kembali</a>
-            </div>
-            <h1>${article.title}</h1>
-            <div class="article-thumb ${article.thumb}" style="width: 100%; height: 300px; border-radius: 1rem; margin-bottom: 2rem;"></div>
-            ${article.content}
-        `;
-    } else {
-      container.innerHTML = `
-            <h1>Artikel Tidak Ditemukan</h1>
-            <p>Maaf, artikel yang Anda cari tidak tersedia.</p>
-            <a href="index.html" class="btn-primary">Kembali ke Beranda</a>
-        `;
+      if (article) {
+        document.title = `${article.title} – miyzaab edu`;
+
+        container.innerHTML = `
+              <div class="article-meta">
+                  <span class="author">${article.author}</span> • <span class="date">${article.date}</span>
+                  <a href="index.html" style="float: right; text-decoration: none; color: var(--primary);">← Kembali</a>
+              </div>
+              <h1>${article.title}</h1>
+              <div class="article-thumb ${article.thumb}" style="width: 100%; height: 300px; border-radius: 1rem; margin-bottom: 2rem;"></div>
+              ${article.content}
+          `;
+      } else {
+        container.innerHTML = `
+              <h1>Artikel Tidak Ditemukan</h1>
+              <p>Maaf, artikel yang Anda cari tidak tersedia.</p>
+              <a href="index.html" class="btn-primary">Kembali ke Beranda</a>
+          `;
+      }
     }
+
+    loadArticleContent();
   </script>
 </body>
 
