@@ -1,4 +1,8 @@
 /* NAVBAR RESPONSIVE */
+.mobile-only {
+  display: none;
+}
+
 .hamburger {
   display: none;
   font-size: 1.5rem;
@@ -36,6 +40,34 @@
 
   .nav-right {
     display: none;
+  }
+
+  .mobile-only {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  .mobile-theme-btn {
+    background: none;
+    border: 1px solid var(--gray-200);
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--gray-800);
+    width: 80%;
+    transition: all 0.2s;
+  }
+
+  .mobile-theme-btn:hover {
+    background: var(--gray-100);
+  }
+
+  /* Adjust mobile login button width */
+  .mobile-login {
+    display: inline-block;
+    width: 80%;
   }
 }
 
