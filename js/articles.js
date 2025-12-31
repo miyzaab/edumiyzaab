@@ -1,13 +1,16 @@
-// Data Artikel Manual (Tanpa Database)
-// Edit bagian ini untuk menambah/mengubah artikel
-const articles = [
+// Articles Data - Fetches from Firebase Firestore with Local Fallback
+// This file provides article data for the public website
+// Compatible with both module and non-module usage
+
+// Local fallback data (used when offline or Firestore is empty)
+const localArticles = [
   {
     "id": 1,
     "title": "Empat Permohonan Penduduk Neraka",
     "author": "Zia Abdurrofi",
     "date": "28 Jan 2024",
     "thumb": "thumb-1",
-    "content": "<p class=\"lead\">Allah Ta’ala telah mempersiapkan dan menjanjikan untuk orang-orang yang beriman dan beramal saleh sebuah ganjaran yang sangat indah berupa surga-Nya.</p><p>Namun bagi penduduk neraka, mereka memiliki permohonan yang menyayat hati. Setidaknya Allah menyebutkan empat permohonan mereka dalam Al-Qur'an:</p><h3>Pertama: Minta Dikeluarkan</h3><p>\"Ya Rabb kami, keluarkanlah kami daripadanya (neraka)...\" (QS. Al-Mu’minun: 107). Namun Allah menjawab: \"Tinggallah dengan hina di dalamnya, dan janganlah kamu berbicara dengan Aku.\"</p><h3>Kedua: Minta Dimatikan</h3><p>Mereka berseru kepada Malaikat Malik: \"Biarlah Rabbmu membunuh kami saja.\" Namun dijawab: \"Kamu akan tetap tinggal (di neraka ini).\" (QS. Az-Zukhruf: 77)</p><h3>Ketiga: Minta Keringanan Azab Sehari</h3><p>Mereka meminta kepada penjaga Jahanam agar diringankan azab sehari saja. Namun permintaan ini pun ditolak karena mereka telah mendustakan para Rasul. (QS. Ghafir: 49-50)</p><h3>Keempat: Minta Air Penduduk Surga</h3><p>Penghuni neraka menyeru penghuni surga meminta limpahan air. Namun penghuni surga menjawab: \"Sesungguhnya Allah telah mengharamkan keduanya itu atas orang-orang kafir.\" (QS. Al-A’raf: 50)</p><blockquote>\"Sesungguhnya sehari di sisi Rabbmu adalah seperti seribu tahun menurut perhitunganmu.\" (QS. Al-Hajj: 47)</blockquote><p>Semoga kita terlindung dari api neraka. Aamiin.</p>"
+    "content": "<p class=\"lead\">Allah Ta'ala telah mempersiapkan dan menjanjikan untuk orang-orang yang beriman dan beramal saleh sebuah ganjaran yang sangat indah berupa surga-Nya.</p><p>Namun bagi penduduk neraka, mereka memiliki permohonan yang menyayat hati. Setidaknya Allah menyebutkan empat permohonan mereka dalam Al-Qur'an:</p><h3>Pertama: Minta Dikeluarkan</h3><p>\"Ya Rabb kami, keluarkanlah kami daripadanya (neraka)...\" (QS. Al-Mu'minun: 107). Namun Allah menjawab: \"Tinggallah dengan hina di dalamnya, dan janganlah kamu berbicara dengan Aku.\"</p><h3>Kedua: Minta Dimatikan</h3><p>Mereka berseru kepada Malaikat Malik: \"Biarlah Rabbmu membunuh kami saja.\" Namun dijawab: \"Kamu akan tetap tinggal (di neraka ini).\" (QS. Az-Zukhruf: 77)</p><h3>Ketiga: Minta Keringanan Azab Sehari</h3><p>Mereka meminta kepada penjaga Jahanam agar diringankan azab sehari saja. Namun permintaan ini pun ditolak karena mereka telah mendustakan para Rasul. (QS. Ghafir: 49-50)</p><h3>Keempat: Minta Air Penduduk Surga</h3><p>Penghuni neraka menyeru penghuni surga meminta limpahan air. Namun penghuni surga menjawab: \"Sesungguhnya Allah telah mengharamkan keduanya itu atas orang-orang kafir.\" (QS. Al-A'raf: 50)</p><blockquote>\"Sesungguhnya sehari di sisi Rabbmu adalah seperti seribu tahun menurut perhitunganmu.\" (QS. Al-Hajj: 47)</blockquote><p>Semoga kita terlindung dari api neraka. Aamiin.</p>"
   },
   {
     "id": 2,
@@ -51,13 +54,124 @@ const articles = [
   }
 ];
 
-// Dispatch event agar halaman lain tahu data sudah siap
-// (Diberi sedikit delay agar script di HTML sempat load)
-setTimeout(() => {
-  window.dispatchEvent(new Event('articlesLoaded'));
-}, 50);
+// Global articles variable
+var articles = [...localArticles];
 
-// Helper function untuk mengambil artikel (opsional, karena variabel 'articles' sudah global)
+// Cache key for localStorage
+const CACHE_KEY = 'miyzaab_articles_cache';
+const CACHE_EXPIRY = 5 * 60 * 1000; // 5 minutes
+
+// Try to load from cache first
+function loadFromCache() {
+  try {
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (cached) {
+      const { data, timestamp } = JSON.parse(cached);
+      if (Date.now() - timestamp < CACHE_EXPIRY) {
+        return data;
+      }
+    }
+  } catch (e) {
+    console.warn('Cache read error:', e);
+  }
+  return null;
+}
+
+// Save to cache
+function saveToCache(data) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({
+      data,
+      timestamp: Date.now()
+    }));
+  } catch (e) {
+    console.warn('Cache write error:', e);
+  }
+}
+
+// Fetch articles from Firestore (dynamic import to avoid module issues)
+async function fetchArticlesFromFirestore() {
+  try {
+    // Dynamic import Firebase
+    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js');
+    const { getFirestore, collection, getDocs, query, orderBy } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDbi98oItrlvn2B-O9q35EMDGgykCYe_mU",
+      authDomain: "miyzaab-edu.firebaseapp.com",
+      projectId: "miyzaab-edu",
+      storageBucket: "miyzaab-edu.firebasestorage.app",
+      messagingSenderId: "109152892611",
+      appId: "1:109152892611:web:eac11f938e57a2b363ac8f"
+    };
+
+    const app = initializeApp(firebaseConfig, 'articles-app');
+    const db = getFirestore(app);
+    const articlesRef = collection(db, 'articles');
+    const q = query(articlesRef, orderBy('createdAt', 'desc'));
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+      console.log('Firestore empty, using local data');
+      return localArticles;
+    }
+
+    const firestoreArticles = snapshot.docs.map((doc, index) => ({
+      id: index + 1,
+      docId: doc.id,
+      ...doc.data()
+    }));
+
+    saveToCache(firestoreArticles);
+    return firestoreArticles;
+  } catch (error) {
+    console.warn('Firestore fetch error, using fallback:', error.message);
+
+    // Try cache
+    const cached = loadFromCache();
+    if (cached && cached.length > 0) {
+      return cached;
+    }
+
+    // Use local data
+    return localArticles;
+  }
+}
+
+// Initialize articles
+async function initArticles() {
+  // Check cache first for faster initial load
+  const cached = loadFromCache();
+  if (cached && cached.length > 0) {
+    articles = cached;
+    window.dispatchEvent(new Event('articlesLoaded'));
+  }
+
+  // Then fetch fresh data from Firestore
+  try {
+    const freshArticles = await fetchArticlesFromFirestore();
+    articles = freshArticles;
+    window.dispatchEvent(new Event('articlesLoaded'));
+  } catch (error) {
+    console.error('Failed to fetch articles:', error);
+    if (!cached) {
+      articles = localArticles;
+      window.dispatchEvent(new Event('articlesLoaded'));
+    }
+  }
+}
+
+// Helper function for other scripts
 function getArticles() {
   return Promise.resolve(articles);
 }
+
+// Start initialization after a small delay to let DOM load
+setTimeout(() => {
+  initArticles();
+}, 100);
+
+// Also dispatch event immediately with local data
+setTimeout(() => {
+  window.dispatchEvent(new Event('articlesLoaded'));
+}, 50);

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin CMS - Miyzaab</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="spinner"></div>
+        <p>Memuat...</p>
+    </div>
+
+    <!-- Auth Required Screen -->
+    <div id="authRequired" class="auth-required" style="display: none;">
+        <div class="icon">🔒</div>
+        <h2>Akses Ditolak</h2>
+        <p>Anda harus login sebagai admin untuk mengakses halaman ini.</p>
+        <a href="login.html?redirect=admin.html" class="btn btn-primary">
+            <span>🔑</span> Login
+        </a>
+        <a href="index.html" class="btn btn-secondary" style="margin-top: 0.5rem;">
+            <span>🏠</span> Kembali ke Beranda
+        </a>
+    </div>
+
+    <!-- Admin Container -->
+    <div id="adminContainer" class="admin-container">
+        <!-- Header -->
+        <header class="admin-header">
+            <h1>📚 <span>Miyzaab</span> CMS</h1>
+            <div class="user-info">
+                <span id="userEmail">admin@miyzaab.com</span>
+                <button id="logoutBtn" class="btn btn-secondary btn-sm">
+                    <span>🚪</span> Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Tabs -->
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="dashboard">
+                <span>📊</span> Dashboard
+            </button>
+            <button class="tab-btn" data-tab="articles">
+                <span>📝</span> Artikel
+                <span class="badge" id="articleCount">0</span>
+            </button>
+            <button class="tab-btn" data-tab="videos">
+                <span>🎬</span> Video
+                <span class="badge" id="videoCount">0</span>
+            </button>
+            <button class="tab-btn" data-tab="audio">
+                <span>🎧</span> Audio
+                <span class="badge" id="audioCount">0</span>
+            </button>
+            <button class="tab-btn" data-tab="quizzes">
+                <span>❓</span> Quiz
+                <span class="badge" id="quizCount">0</span>
+            </button>
+        </nav>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="content-header">
+                <h2>📊 Dashboard</h2>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="icon">📝</div>
+                    <div class="value" id="statArticles">0</div>
+                    <div class="label">Artikel</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">🎬</div>
+                    <div class="value" id="statVideos">0</div>
+                    <div class="label">Video</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">🎧</div>
+                    <div class="value" id="statAudio">0</div>
+                    <div class="label">Audio</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">❓</div>
+                    <div class="value" id="statQuizzes">0</div>
+                    <div class="label">Quiz</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Articles Tab -->
+        <div id="articles" class="tab-content">
+            <div class="content-header">
+                <h2>📝 Kelola Artikel</h2>
+                <button class="btn btn-primary" onclick="openArticleModal()">
+                    <span>➕</span> Tambah Artikel
+                </button>
+            </div>
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Judul</th>
+                            <th>Penulis</th>
+                            <th>Tanggal</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="articlesTableBody">
+                        <tr>
+                            <td colspan="4" class="empty-state">
+                                <div class="icon">📝</div>
+                                <p>Belum ada artikel</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Videos Tab -->
+        <div id="videos" class="tab-content">
+            <div class="content-header">
+                <h2>🎬 Kelola Video</h2>
+                <button class="btn btn-primary" onclick="openVideoModal()">
+                    <span>➕</span> Tambah Video
+                </button>
+            </div>
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Judul</th>
+                            <th>YouTube ID</th>
+                            <th>Durasi</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="videosTableBody">
+                        <tr>
+                            <td colspan="4" class="empty-state">
+                                <div class="icon">🎬</div>
+                                <p>Belum ada video</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Audio Tab -->
+        <div id="audio" class="tab-content">
+            <div class="content-header">
+                <h2>🎧 Kelola Audio</h2>
+                <button class="btn btn-primary" onclick="openAudioModal()">
+                    <span>➕</span> Tambah Audio
+                </button>
+            </div>
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Judul</th>
+                            <th>Pemateri</th>
+                            <th>Durasi</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="audioTableBody">
+                        <tr>
+                            <td colspan="4" class="empty-state">
+                                <div class="icon">🎧</div>
+                                <p>Belum ada audio</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Quizzes Tab -->
+        <div id="quizzes" class="tab-content">
+            <div class="content-header">
+                <h2>❓ Kelola Quiz</h2>
+                <button class="btn btn-primary" onclick="openQuizModal()">
+                    <span>➕</span> Tambah Quiz
+                </button>
+            </div>
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Judul Quiz</th>
+                            <th>Jumlah Soal</th>
+                            <th>Kategori</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="quizzesTableBody">
+                        <tr>
+                            <td colspan="4" class="empty-state">
+                                <div class="icon">❓</div>
+                                <p>Belum ada quiz</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Article Modal -->
+    <div id="articleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="articleModalTitle">Tambah Artikel</h3>
+                <button class="modal-close" onclick="closeArticleModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="articleForm">
+                    <input type="hidden" id="articleId">
+                    <div class="form-group">
+                        <label for="articleTitle">Judul Artikel</label>
+                        <input type="text" id="articleTitle" required placeholder="Masukkan judul artikel">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="articleAuthor">Penulis</label>
+                            <input type="text" id="articleAuthor" required placeholder="Nama penulis">
+                        </div>
+                        <div class="form-group">
+                            <label for="articleThumb">Thumbnail</label>
+                            <select id="articleThumb">
+                                <option value="thumb-1">Thumbnail 1</option>
+                                <option value="thumb-2">Thumbnail 2</option>
+                                <option value="thumb-3">Thumbnail 3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="articleContent">Konten (HTML)</label>
+                        <textarea id="articleContent" required
+                            placeholder="<p>Tulis konten artikel di sini...</p>"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeArticleModal()">Batal</button>
+                <button class="btn btn-primary" onclick="saveArticle()">
+                    <span>💾</span> Simpan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="videoModalTitle">Tambah Video</h3>
+                <button class="modal-close" onclick="closeVideoModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="videoForm">
+                    <input type="hidden" id="videoId">
+                    <div class="form-group">
+                        <label for="videoTitle">Judul Video</label>
+                        <input type="text" id="videoTitle" required placeholder="Masukkan judul video">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="videoYoutubeId">YouTube Video ID</label>
+                            <input type="text" id="videoYoutubeId" required placeholder="Contoh: dQw4w9WgXcQ">
+                        </div>
+                        <div class="form-group">
+                            <label for="videoDuration">Durasi</label>
+                            <input type="text" id="videoDuration" placeholder="Contoh: 10:30">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="videoDescription">Deskripsi</label>
+                        <textarea id="videoDescription" placeholder="Deskripsi video..."
+                            style="min-height: 100px;"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeVideoModal()">Batal</button>
+                <button class="btn btn-primary" onclick="saveVideo()">
+                    <span>💾</span> Simpan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Modal -->
+    <div id="audioModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="audioModalTitle">Tambah Audio</h3>
+                <button class="modal-close" onclick="closeAudioModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="audioForm">
+                    <input type="hidden" id="audioDocId">
+                    <div class="form-group">
+                        <label for="audioTitle">Judul Audio</label>
+                        <input type="text" id="audioTitle" required placeholder="Masukkan judul audio">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="audioSpeaker">Pemateri</label>
+                            <input type="text" id="audioSpeaker" required placeholder="Nama pemateri">
+                        </div>
+                        <div class="form-group">
+                            <label for="audioDuration">Durasi</label>
+                            <input type="text" id="audioDuration" placeholder="Contoh: 45:00">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="audioUrl">URL Audio (MP3)</label>
+                        <input type="url" id="audioUrl" required placeholder="https://example.com/audio.mp3">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeAudioModal()">Batal</button>
+                <button class="btn btn-primary" onclick="saveAudio()">
+                    <span>💾</span> Simpan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Modal -->
+    <div id="quizModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="quizModalTitle">Tambah Quiz</h3>
+                <button class="modal-close" onclick="closeQuizModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="quizForm">
+                    <input type="hidden" id="quizDocId">
+                    <div class="form-group">
+                        <label for="quizTitle">Judul Quiz</label>
+                        <input type="text" id="quizTitle" required placeholder="Masukkan judul quiz">
+                    </div>
+                    <div class="form-group">
+                        <label for="quizCategory">Kategori</label>
+                        <input type="text" id="quizCategory" placeholder="Contoh: Fiqih, Aqidah, Sirah">
+                    </div>
+                    <div class="form-group">
+                        <label>Soal-soal (JSON format)</label>
+                        <textarea id="quizQuestions"
+                            placeholder='[{"question": "Pertanyaan?", "options": ["A", "B", "C", "D"], "answer": 0}]'
+                            style="min-height: 150px; font-family: monospace;"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeQuizModal()">Batal</button>
+                <button class="btn btn-primary" onclick="saveQuiz()">
+                    <span>💾</span> Simpan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script type="module" src="js/admin.js"></script>
+</body>
+
+</html>

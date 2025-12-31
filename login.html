@@ -69,10 +69,14 @@
   <script type="module">
     import { login, checkAuth, signInWithGoogle } from './js/auth.js';
 
+    // Get redirect URL from query params
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectUrl = urlParams.get('redirect') || 'index.html';
+
     // Redirect if already logged in
     checkAuth((user) => {
       if (user) {
-        window.location.href = 'index.html';
+        window.location.href = redirectUrl;
       }
     });
 
@@ -100,8 +104,8 @@
         console.log('Login Result:', result);
 
         if (result.success) {
-          console.log('Login success, redirecting...');
-          window.location.href = 'index.html';
+          console.log('Login success, redirecting to:', redirectUrl);
+          window.location.href = redirectUrl;
         } else {
           console.error('Login Failed:', result.error);
           alert('Login gagal: ' + result.error);
@@ -127,7 +131,7 @@
         console.log('Google Sign-In Result:', result);
 
         if (result.success) {
-          window.location.href = 'index.html';
+          window.location.href = redirectUrl;
         } else {
           console.error('Google Sign-In Error:', result.error);
           alert('Login gagal: ' + result.error);
