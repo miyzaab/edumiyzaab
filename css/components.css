@@ -468,15 +468,15 @@ body.dark .glass-card {
 
 /* Gradient Placeholders since image generation was busy */
 .thumb-1 {
-  background-image: url('../assets/article-1.svg');
+  background-image: url('../assets/article-1.png');
 }
 
 .thumb-2 {
-  background-image: url('../assets/article-2.svg');
+  background-image: url('../assets/article-2.png');
 }
 
 .thumb-3 {
-  background-image: url('../assets/article-3.svg');
+  background-image: url('../assets/article-3.png');
 }
 
 .article-body {

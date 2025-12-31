@@ -10,9 +10,9 @@
   <title>miyzaab edu – Berbagi Faidah</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/dark.css">
+  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="stylesheet" href="css/components.css?v=3">
+  <link rel="stylesheet" href="css/dark.css?v=3">
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 
@@ -84,12 +84,14 @@
   </section>
 
   <script>
-    // Simple script to render latest 3 articles
-    window.addEventListener('articlesLoaded', () => {
+    // Render articles directly when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
       const container = document.getElementById('articlesContainer');
-      const latestArticles = articles.slice(0, 3); // Get first 3
 
-      if (latestArticles.length > 0) {
+      // Check if articles variable exists (from js/articles.js)
+      if (typeof articles !== 'undefined' && articles.length > 0) {
+        const latestArticles = articles.slice(0, 3); // Get first 3
+
         container.innerHTML = latestArticles.map((article, index) => `
           <article class="article-card animate-on-scroll" style="transition-delay: ${index * 0.1}s">
             <div class="article-thumb ${article.thumb}"></div>
@@ -106,20 +108,16 @@
         `).join('');
       } else {
         container.innerHTML = '<p>Belum ada artikel.</p>';
+        console.error('Artikel tidak ditemukan. Pastikan js/articles.js dimuat.');
       }
     });
-
-    // Fallback if event already fired
-    if (articles.length > 0) {
-      window.dispatchEvent(new Event('articlesLoaded'));
-    }
   </script>
 
   <!-- NEWSLETTER -->
   <section class="newsletter animate-on-scroll">
     <div class="newsletter-content">
       <h2>Dapatkan Faidah Harian</h2>
-      <p>Bergabunglah dengan 5.000+ penuntut ilmu lainnya untuk mendapatkan artikel dan info kajian terbaru.</p>
+      <p>Bergabunglah dengan para penuntut ilmu lainnya untuk mendapatkan artikel dan info kajian terbaru.</p>
       <form class="newsletter-form">
         <input type="email" placeholder="Masukkan email Anda..." required>
         <button type="submit" class="btn-primary">Berlangganan</button>
@@ -195,6 +193,7 @@
       <p>&copy; 2025 Miyzaab Edu. All rights reserved.</p>
     </div>
   </footer>
+
 
   <script src="js/articles.js"></script>
   <script src="js/navbar.js"></script>

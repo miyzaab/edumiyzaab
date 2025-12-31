@@ -66,6 +66,20 @@ body {
   transform: rotate(15deg);
 }
 
+.article-content {
+  max-width: 720px;
+  width: 100%;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #374151;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 3rem;
+  border-radius: 1.5rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
 .logo a {
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
@@ -99,21 +113,7 @@ body {
   color: var(--primary);
 }
 
-.menu a::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: -4px;
-  left: 0;
-  background-color: var(--primary);
-  transition: width 0.3s ease;
-}
 
-.menu a:hover::after,
-.menu a.active::after {
-  width: 100%;
-}
 
 .btn-login {
   padding: 0.6rem 1.25rem;

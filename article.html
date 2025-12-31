@@ -9,9 +9,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Artikel Islami – miyzaab edu</title>
 
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/dark.css">
+  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="stylesheet" href="css/components.css?v=3">
+  <link rel="stylesheet" href="css/dark.css?v=3">
 </head>
 
 <body data-page="article">
@@ -27,94 +27,39 @@
 
   <!-- ARTICLE GRID -->
   <main class="latest-articles" style="padding-top: 2rem;">
-    <div class="articles-grid">
-
-      <!-- Article 1 -->
-      <article class="article-card">
-        <div class="article-thumb thumb-1"></div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="author">Ustadz Abdullah Roy</span> • <span class="date">28 Des 2025</span>
-          </div>
-          <a href="read-article.html?id=1">
-            <h3>Keutamaan Sabar dalam Ujian</h3>
-          </a>
-          <p>Sabar adalah separuh dari keimanan. Ketahuilah bahwa besarnya pahala setimpal dengan besarnya cobaan yang
-            menimpa seorang hamba...</p>
-        </div>
-      </article>
-
-      <!-- Article 2 -->
-      <article class="article-card">
-        <div class="article-thumb thumb-2"></div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="author">Ustadz Firanda Andirja</span> • <span class="date">25 Des 2025</span>
-          </div>
-          <a href="read-article.html?id=2">
-            <h3>Tes</h3>
-          </a>
-          <p>Lisan adalah nikmat besar namun bisa menjadi bencana jika tidak dijaga. Nabi ﷺ menjamin surga bagi siapa
-            yang menjamin lisannya...</p>
-        </div>
-      </article>
-
-      <!-- Article 3 -->
-      <article class="article-card">
-        <div class="article-thumb thumb-3"></div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="author">Tes</span> • <span class="date">20 Des 2025</span>
-          </div>
-          <a href="read-article.html?id=3">
-            <h3>Birrul Walidain: Jalan ke Surga</h3>
-          </a>
-          <p>Ridha Allah terletak pada ridha orang tua, dan murka Allah terletak pada murka keduanya...</p>
-        </div>
-      </article>
-
-      <!-- More Dummy Articles to fill the grid -->
-      <article class="article-card">
-        <div class="article-thumb thumb-2"></div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="author">Admin</span> • <span class="date">18 Sep 2025</span>
-          </div>
-          <a href="read-article.html?id=4">
-            <h3>Tafsir Surat Al-Fatihah</h3>
-          </a>
-          <p>Memahami kandungan surat pembuka dalam Al-Qur'an dan rahasia-rahasia agung di dalamnya...</p>
-        </div>
-      </article>
-
-      <article class="article-card">
-        <div class="article-thumb thumb-3"></div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="author">Abdullah</span> • <span class="date">15 Sep 2025</span>
-          </div>
-          <a href="read-article.html?id=5">
-            <h3>Panduan Shalat Khusyu</h3>
-          </a>
-          <p>Kiat-kiat praktis untuk menghadirkan hati dalam shalat agar ibadah lebih bermakna...</p>
-        </div>
-      </article>
-
-      <article class="article-card">
-        <div class="article-thumb thumb-1"></div>
-        <div class="article-body">
-          <div class="article-meta">
-            <span class="author">Zia Abdurrofi</span> • <span class="date">12 Sep 2025</span>
-          </div>
-          <a href="read-article.html?id=6">
-            <h3>Kisah Nabi Musa dan Khidir</h3>
-          </a>
-          <p>Pelajaran berharga tentang ilmu, kesabaran, dan takdir Allah dari perjalanan dua hamba saleh...</p>
-        </div>
-      </article>
-
+    <div class="articles-grid" id="articlesContainer">
+      <!-- Loading placeholder -->
+      <p>Memuat semua artikel...</p>
     </div>
   </main>
+
+
+  <script src="js/articles.js"></script>
+  <script src="js/navbar.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('articlesContainer');
+
+      if (typeof articles !== 'undefined' && articles.length > 0) {
+        container.innerHTML = articles.map((article, index) => `
+          <article class="article-card" style="animation: fadeInUp 0.5s ease backwards ${index * 0.1}s;">
+            <div class="article-thumb ${article.thumb}"></div>
+            <div class="article-body">
+              <div class="article-meta">
+                <span class="author">${article.author}</span> • <span class="date">${article.date}</span>
+              </div>
+              <a href="read-article.html?id=${article.id}">
+                <h3>${article.title}</h3>
+              </a>
+              <p>${article.content.replace(/<[^>]*>?/gm, '').substring(0, 100)}...</p>
+            </div>
+          </article>
+        `).join('');
+      } else {
+        container.innerHTML = '<p>Belum ada artikel.</p>';
+      }
+    });
+  </script>
 
   <script src="js/navbar.js"></script>
 </body>

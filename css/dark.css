@@ -12,14 +12,26 @@ body.dark {
   color: var(--gray-800);
 }
 
+/* Navbar Dark Mode Override */
 body.dark .navbar {
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(15, 23, 42, 0.95) !important;
   border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark .hamburger {
+  color: white;
 }
 
 body.dark .menu a {
   color: var(--gray-800);
 }
+
+body.dark .menu a:hover,
+body.dark .menu a.active {
+  color: white !important;
+}
+
+
 
 body.dark #themeToggle:hover {
   background: var(--gray-200);
@@ -84,6 +96,10 @@ body.dark .btn-secondary:hover {
 
 body.dark .article-content {
   color: #d1d5db;
+  background: var(--white);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
 }
 
 body.dark .article-content h1 {
@@ -190,7 +206,8 @@ body.dark .footer-brand p {
 }
 
 body.dark .social-icons a {
-  background: var(--gray-800);
+  background: var(--gray-200);
+  color: white;
 }
 
 body.dark .social-icons a:hover {
@@ -222,4 +239,44 @@ body.dark .quiz-option input:checked+.option-content {
   background: rgba(16, 185, 129, 0.2);
   border-color: var(--primary);
   color: var(--primary-light);
+}
+
+/* FIX: Mobile Menu Dark Mode Background */
+@media (max-width: 768px) {
+  body.dark .menu {
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  }
+
+  body.dark .mobile-theme-btn {
+    border-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--gray-800);
+  }
+
+  body.dark .mobile-theme-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* FIX: Auth Card Dark Mode Text */
+body.dark .auth-card h2 {
+  color: white;
+}
+
+body.dark .auth-desc,
+body.dark .auth-card label,
+body.dark .auth-footer {
+  color: var(--gray-400);
+}
+
+body.dark .auth-card input {
+  background: var(--gray-50);
+  border-color: var(--gray-200);
+  color: white;
+}
+
+body.dark .auth-footer a {
+  color: var(--primary);
 }
