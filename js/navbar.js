@@ -82,10 +82,23 @@ import('./auth.js').then(({ checkAuth, logout }) => {
         btn.href = '#';
         btn.addEventListener('click', (e) => {
           e.preventDefault();
-          localStorage.removeItem('user_email');
-          window.location.reload();
+          if (confirm('Yakin ingin keluar?')) {
+            logout();
+          }
         });
       });
+    } else {
+      // User is not logged in - show login button (only on login/register pages)
+      const currentPage = document.body.dataset.page;
+      if (currentPage === 'login' || currentPage === 'register') {
+        loginBtn.forEach(btn => {
+          btn.textContent = 'Masuk';
+          btn.href = 'login.html';
+        });
+      }
     }
-
   });
+}).catch(err => {
+  // Auth module not available (on login/register pages without auth check)
+  console.log('Auth module not loaded');
+});

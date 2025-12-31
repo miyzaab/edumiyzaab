@@ -69,7 +69,7 @@
   <script src="js/navbar.js"></script>
 
   <script type="module">
-    import { login, checkAuth } from './js/auth.js';
+    import { login, checkAuth, signInWithGoogle } from './js/auth.js';
 
     // Redirect if already logged in
     checkAuth((user) => {
@@ -112,13 +112,21 @@
       googleBtn.disabled = true;
       googleBtn.querySelector('span').textContent = 'Memproses...';
 
-      const { signInWithGoogle } = await import('./js/auth.js');
-      const result = await signInWithGoogle();
+      try {
+        const result = await signInWithGoogle();
+        console.log('Google Sign-In Result:', result);
 
-      if (result.success) {
-        window.location.href = 'index.html';
-      } else {
-        alert(result.error);
+        if (result.success) {
+          window.location.href = 'index.html';
+        } else {
+          console.error('Google Sign-In Error:', result.error);
+          alert('Login gagal: ' + result.error);
+          googleBtn.disabled = false;
+          googleBtn.querySelector('span').textContent = 'Masuk dengan Google';
+        }
+      } catch (error) {
+        console.error('Google Sign-In Exception:', error);
+        alert('Error: ' + error.message);
         googleBtn.disabled = false;
         googleBtn.querySelector('span').textContent = 'Masuk dengan Google';
       }
