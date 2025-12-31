@@ -1,6 +1,6 @@
 [build]
   publish = "."
-  command = "echo 'Static site - no build needed'"
+  command = "node build-content.js"
 
 # Redirect untuk SPA admin
 [[redirects]]

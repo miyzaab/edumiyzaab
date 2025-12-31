@@ -50,13 +50,31 @@
 
 
   <script src="js/articles.js"></script>
+  <script src="js/cms-loader.js"></script>
   <script src="js/navbar.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       const container = document.getElementById('articlesContainer');
 
-      if (typeof articles !== 'undefined' && articles.length > 0) {
-        container.innerHTML = articles.map((article, index) => `
+      // Coba load dari CMS dulu
+      let articleList = [];
+
+      try {
+        const response = await fetch('/content/articles/index.json');
+        if (response.ok) {
+          articleList = await response.json();
+        }
+      } catch (e) {
+        console.log('CMS data not found, using legacy data');
+      }
+
+      // Fallback ke data lama jika CMS kosong
+      if (articleList.length === 0 && typeof articles !== 'undefined') {
+        articleList = articles;
+      }
+
+      if (articleList.length > 0) {
+        container.innerHTML = articleList.map((article, index) => `
           <article class="article-card" style="animation: fadeInUp 0.5s ease backwards ${index * 0.1}s;">
             <div class="article-thumb ${article.thumb}"></div>
             <div class="article-body">
@@ -66,7 +84,7 @@
               <a href="read-article.html?id=${article.id}">
                 <h3>${article.title}</h3>
               </a>
-              <p>${article.content.replace(/<[^>]*>?/gm, '').substring(0, 100)}...</p>
+              <p>${(article.content || '').replace(/<[^>]*>?/gm, '').substring(0, 100)}...</p>
             </div>
           </article>
         `).join('');

@@ -100,13 +100,28 @@
   </section>
 
   <script>
-    // Render articles directly when DOM is ready
-    document.addEventListener('DOMContentLoaded', () => {
+    // Render articles - CMS first, fallback to legacy
+    document.addEventListener('DOMContentLoaded', async () => {
       const container = document.getElementById('articlesContainer');
+      let articleList = [];
 
-      // Check if articles variable exists (from js/articles.js)
-      if (typeof articles !== 'undefined' && articles.length > 0) {
-        const latestArticles = articles.slice(0, 3); // Get first 3
+      // Coba load dari CMS
+      try {
+        const response = await fetch('/content/articles/index.json');
+        if (response.ok) {
+          articleList = await response.json();
+        }
+      } catch (e) {
+        console.log('CMS not available, using legacy data');
+      }
+
+      // Fallback ke data lama
+      if (articleList.length === 0 && typeof articles !== 'undefined') {
+        articleList = articles;
+      }
+
+      if (articleList.length > 0) {
+        const latestArticles = articleList.slice(0, 3);
 
         container.innerHTML = latestArticles.map((article, index) => `
           <article class="article-card animate-on-scroll" style="transition-delay: ${index * 0.1}s">
@@ -118,13 +133,12 @@
               <a href="read-article.html?id=${article.id}">
                 <h3>${article.title}</h3>
               </a>
-              <p>${article.content.replace(/<[^>]*>?/gm, '').substring(0, 100)}...</p>
+              <p>${(article.content || '').replace(/<[^>]*>?/gm, '').substring(0, 100)}...</p>
             </div>
           </article>
         `).join('');
       } else {
         container.innerHTML = '<p>Belum ada artikel.</p>';
-        console.error('Artikel tidak ditemukan. Pastikan js/articles.js dimuat.');
       }
     });
   </script>
