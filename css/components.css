@@ -945,7 +945,7 @@ body.dark .glass-card {
 }
 
 .newsletter-content {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--game-dark) 100%);
+  background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);
   padding: 3rem 2rem;
   border-radius: var(--radius-xl);
   text-align: center;
@@ -953,6 +953,45 @@ body.dark .glass-card {
   max-width: 1000px;
   margin: 0 auto;
   box-shadow: var(--shadow-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.newsletter-content::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -20%;
+  width: 60%;
+  height: 200%;
+  background: var(--primary);
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+  animation: blobFloat 15s infinite ease-in-out alternate;
+  pointer-events: none;
+}
+
+.newsletter-content::after {
+  content: '';
+  position: absolute;
+  bottom: -50%;
+  right: -20%;
+  width: 60%;
+  height: 200%;
+  background: #34d399;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.2;
+  animation: blobFloat 12s infinite ease-in-out alternate-reverse;
+  pointer-events: none;
+}
+
+.newsletter-content h2,
+.newsletter-content p,
+.newsletter-form {
+  position: relative;
+  z-index: 5;
 }
 
 .newsletter-content h2 {

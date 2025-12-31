@@ -1,0 +1,28 @@
+{
+    "id": 1,
+    "title": "Quiz Dasar Tauhid",
+    "description": "Uji pemahaman Anda tentang dasar-dasar tauhid",
+    "category": "Aqidah",
+    "questions": [
+        {
+            "question": "Apa arti dari kalimat 'La ilaha illallah'?",
+            "options": [
+                "Allah itu satu",
+                "Tidak ada tuhan yang berhak disembah kecuali Allah",
+                "Allah Maha Besar",
+                "Segala puji bagi Allah"
+            ],
+            "correct": 1
+        },
+        {
+            "question": "Berapa rukun iman dalam Islam?",
+            "options": [
+                "5 rukun",
+                "6 rukun",
+                "7 rukun",
+                "4 rukun"
+            ],
+            "correct": 1
+        }
+    ]
+}

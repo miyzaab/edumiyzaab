@@ -328,3 +328,26 @@ body.dark .auth-card input {
 body.dark .auth-footer a {
   color: var(--primary);
 }
+
+/* FIX: Newsletter Input in Dark Mode */
+body.dark .newsletter-form input {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--gray-800);
+  border: 2px solid transparent;
+}
+
+body.dark .newsletter-form input:focus {
+  background: white;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.4);
+}
+
+body.dark .newsletter-form button {
+  background: var(--gray-800);
+  color: var(--primary);
+}
+
+body.dark .newsletter-form button:hover {
+  background: black;
+  color: white;
+}

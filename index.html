@@ -10,9 +10,9 @@
   <title>miyzaab edu – Berbagi Faidah</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css?v=3">
-  <link rel="stylesheet" href="css/components.css?v=3">
-  <link rel="stylesheet" href="css/dark.css?v=3">
+  <link rel="stylesheet" href="css/style.css?v=6">
+  <link rel="stylesheet" href="css/components.css?v=6">
+  <link rel="stylesheet" href="css/dark.css?v=6">
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 
@@ -39,7 +39,7 @@
 
   <!-- HERO -->
   <section class="hero">
-    <h1 class="animate-on-scroll">Belajar Islam dengan Mudah</h1>
+    <h1 class="animate-on-scroll">Belajar Islam dengan Mudah dan Sistematis</h1>
     <p class="animate-on-scroll">
       Artikel ilmiah, audio pelajaran, dan latihan soal
       berdasarkan Al-Qur’an dan Sunnah.
@@ -134,12 +134,40 @@
     <div class="newsletter-content">
       <h2>Dapatkan Faidah Harian</h2>
       <p>Bergabunglah dengan para penuntut ilmu lainnya untuk mendapatkan artikel dan info kajian terbaru.</p>
-      <form class="newsletter-form">
+      <form class="newsletter-form" id="newsletterForm">
         <input type="email" placeholder="Masukkan email Anda..." required>
         <button type="submit" class="btn-primary">Berlangganan</button>
       </form>
     </div>
   </section>
+
+  <script>
+    document.getElementById('newsletterForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const btn = this.querySelector('button');
+      const input = this.querySelector('input');
+      const originalText = btn.textContent;
+
+      btn.disabled = true;
+      btn.textContent = 'Memproses...';
+
+      // Simulate API call
+      setTimeout(() => {
+        btn.textContent = '✅ Terkirim!';
+        btn.style.backgroundColor = '#10B981'; // Success green
+        alert(`Terima kasih! Email ${input.value} telah didaftarkan untuk menerima update harian.`);
+
+        input.value = '';
+
+        // Reset button after 3 seconds
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.textContent = originalText;
+          btn.style.backgroundColor = '';
+        }, 3000);
+      }, 1000);
+    });
+  </script>
 
   <!-- FOOTER -->
   <footer class="footer">

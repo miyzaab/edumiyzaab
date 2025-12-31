@@ -1,0 +1,114 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Media files (untuk upload gambar)
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+# Lokalisasi Indonesia
+locale: "id"
+
+# Collections (Jenis konten yang bisa dikelola)
+collections:
+  # ===== ARTIKEL =====
+  - name: "articles"
+    label: "📝 Artikel"
+    label_singular: "Artikel"
+    folder: "content/articles"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - { label: "ID", name: "id", widget: "number", value_type: "int", required: true }
+      - { label: "Judul", name: "title", widget: "string" }
+      - { label: "Penulis", name: "author", widget: "string", default: "Admin" }
+      - { label: "Tanggal", name: "date", widget: "string", default: "01 Jan 2025" }
+      - label: "Thumbnail"
+        name: "thumb"
+        widget: "select"
+        options:
+          - { label: "Thumb 1 (Hijau)", value: "thumb-1" }
+          - { label: "Thumb 2 (Biru)", value: "thumb-2" }
+          - { label: "Thumb 3 (Ungu)", value: "thumb-3" }
+        default: "thumb-1"
+      - { label: "Konten", name: "content", widget: "markdown" }
+
+  # ===== VIDEO =====
+  - name: "videos"
+    label: "🎬 Video"
+    label_singular: "Video"
+    folder: "content/videos"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - { label: "ID", name: "id", widget: "number", value_type: "int", required: true }
+      - { label: "Judul", name: "title", widget: "string" }
+      - { label: "URL YouTube", name: "url", widget: "string", hint: "Contoh: https://www.youtube.com/watch?v=xxxxx" }
+      - { label: "Thumbnail URL", name: "thumbnail", widget: "string", required: false, hint: "Kosongkan untuk auto-generate dari YouTube" }
+      - { label: "Deskripsi", name: "description", widget: "text", required: false }
+      - { label: "Kategori", name: "category", widget: "string", default: "Kajian" }
+
+  # ===== QUIZ =====
+  - name: "quizzes"
+    label: "❓ Quiz"
+    label_singular: "Quiz"
+    folder: "content/quizzes"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - { label: "ID", name: "id", widget: "number", value_type: "int", required: true }
+      - { label: "Judul Quiz", name: "title", widget: "string" }
+      - { label: "Deskripsi", name: "description", widget: "text", required: false }
+      - { label: "Kategori", name: "category", widget: "string", default: "Umum" }
+      - label: "Pertanyaan"
+        name: "questions"
+        widget: "list"
+        fields:
+          - { label: "Pertanyaan", name: "question", widget: "string" }
+          - label: "Pilihan Jawaban"
+            name: "options"
+            widget: "list"
+            field: { label: "Opsi", name: "option", widget: "string" }
+          - { label: "Jawaban Benar (index 0-3)", name: "correct", widget: "number", value_type: "int", min: 0, max: 3 }
+
+  # ===== AUDIO =====
+  - name: "audios"
+    label: "🎧 Audio"
+    label_singular: "Audio"
+    folder: "content/audios"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - { label: "ID", name: "id", widget: "number", value_type: "int", required: true }
+      - { label: "Judul", name: "title", widget: "string" }
+      - { label: "Pemateri", name: "speaker", widget: "string" }
+      - { label: "URL Audio", name: "url", widget: "string", hint: "URL file audio (MP3)" }
+      - { label: "Durasi", name: "duration", widget: "string", default: "00:00", hint: "Format: MM:SS" }
+      - { label: "Kategori", name: "category", widget: "string", default: "Kajian" }
+
+  # ===== SETTINGS =====
+  - name: "settings"
+    label: "⚙️ Pengaturan"
+    files:
+      - name: "site"
+        label: "Pengaturan Situs"
+        file: "content/settings/site.json"
+        fields:
+          - { label: "Nama Situs", name: "siteName", widget: "string", default: "Miyzaab Edu" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Email Kontak", name: "email", widget: "string", required: false }
+          - label: "Social Media"
+            name: "social"
+            widget: "object"
+            fields:
+              - { label: "Instagram", name: "instagram", widget: "string", required: false }
+              - { label: "YouTube", name: "youtube", widget: "string", required: false }
+              - { label: "WhatsApp", name: "whatsapp", widget: "string", required: false }
