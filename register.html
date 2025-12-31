@@ -9,31 +9,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar – miyzaab edu</title>
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/dark.css">
+    <link rel="stylesheet" href="css/style.css?v=3">
+    <link rel="stylesheet" href="css/components.css?v=3">
+    <link rel="stylesheet" href="css/dark.css?v=3">
 </head>
 
 <body data-page="register">
 
-    <!-- AUTO NAVBAR (SATU-SATUNYA) -->
+    <!-- AUTO NAVBAR -->
     <div id="navbar"></div>
 
     <!-- REGISTER -->
     <main class="auth-container">
         <div class="auth-card">
             <h2>Daftar Akun</h2>
-            <p class="auth-desc">Buat akun baru untuk mulai belajar</p>
+            <p class="auth-desc">Buat akun untuk mulai belajar</p>
 
             <form id="registerForm">
                 <label>Nama Lengkap</label>
-                <input type="text" placeholder="Fulan bin Fulan" required>
+                <input type="text" id="name" placeholder="Nama Anda" required>
 
                 <label>Email</label>
-                <input type="email" placeholder="email@email.com" required>
+                <input type="email" id="email" placeholder="email@email.com" required>
 
-                <label>Password</label>
-                <input type="password" placeholder="••••••••" required>
+                <label>Password <small>(Min. 6 karakter)</small></label>
+                <input type="password" id="password" placeholder="••••••••" required>
 
                 <button type="submit" class="btn-primary full">Daftar</button>
             </form>
@@ -45,9 +45,55 @@
         </div>
     </main>
 
-    <!-- SCRIPT (WAJIB DI SINI) -->
+    <!-- SCRIPT -->
     <script src="js/navbar.js"></script>
-    <script src="js/auth.js"></script>
+
+    <script type="module">
+        import { register, checkAuth } from './js/auth.js';
+
+        // Redirect if already logged in
+        checkAuth((user) => {
+            if (user) {
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Handle register form
+        const form = document.getElementById('registerForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const submitBtn = form.querySelector('button[type="submit"]');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            if (!name || !email || !password) {
+                alert('Semua field harus diisi');
+                return;
+            }
+
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Memproses...';
+
+            // Try to register
+            const result = await register(name, email, password);
+
+            if (result.success) {
+                alert('Pendaftaran berhasil! Silakan login.');
+                window.location.href = 'login.html';
+            } else {
+                alert(result.error);
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Daftar';
+            }
+        });
+    </script>
 </body>
 
 </html>

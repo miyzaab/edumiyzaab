@@ -21,6 +21,14 @@
   <!-- AUTO NAVBAR (SATU-SATUNYA) -->
   <div id="navbar"></div>
 
+  <!-- AUTH CHECK -->
+  <script type="module">
+    import { checkAuth } from './js/auth.js';
+    checkAuth((user) => {
+      if (!user) window.location.href = 'login.html';
+    });
+  </script>
+
   <!-- HERO -->
   <section class="hero">
     <h1 class="animate-on-scroll">Belajar Islam dengan Mudah</h1>

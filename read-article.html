@@ -19,6 +19,14 @@
   <!-- AUTO NAVBAR -->
   <div id="navbar"></div>
 
+  <!-- AUTH CHECK -->
+  <script type="module">
+    import { checkAuth } from './js/auth.js';
+    checkAuth((user) => {
+      if (!user) window.location.href = 'login.html';
+    });
+  </script>
+
   <main class="article-container animate-on-scroll">
     <div id="articleContent" class="article-content">
       <!-- Content Injected Here -->

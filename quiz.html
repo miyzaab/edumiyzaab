@@ -20,6 +20,14 @@
   <!-- AUTO NAVBAR (SATU-SATUNYA) -->
   <div id="navbar"></div>
 
+  <!-- AUTH CHECK -->
+  <script type="module">
+    import { checkAuth } from './js/auth.js';
+    checkAuth((user) => {
+      if (!user) window.location.href = 'login.html';
+    });
+  </script>
+
   <!-- QUIZ -->
   <main class="quiz-container">
     <div class="quiz-card">

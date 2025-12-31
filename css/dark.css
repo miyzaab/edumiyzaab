@@ -179,10 +179,58 @@ body.dark .audio-item p {
   color: var(--gray-400);
 }
 
-body.dark .badge {
-  background: var(--gray-800);
+/* Audio Player Dark Mode Fixes */
+body.dark .now-playing-card {
+  background: var(--white);
+  color: var(--gray-800);
+}
+
+body.dark .track-info h2 {
   color: white;
 }
+
+body.dark .track-info p {
+  color: #9ca3af;
+}
+
+body.dark .time-info {
+  color: #9ca3af;
+}
+
+body.dark .ctrl-btn {
+  background: var(--gray-200);
+  color: white;
+}
+
+body.dark .ctrl-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+
+body.dark .badge {
+  background: var(--gray-200);
+  color: white;
+}
+
+/* Category Tabs Dark Mode */
+body.dark .category-tabs {
+  border-bottom-color: var(--gray-200);
+}
+
+body.dark .category-btn {
+  background: var(--gray-200);
+  color: var(--gray-800);
+}
+
+body.dark .category-btn:hover {
+  background: var(--gray-100);
+}
+
+body.dark .category-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
 
 /* Footer & Newsletter Dark Mode */
 body.dark .footer {

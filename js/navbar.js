@@ -53,34 +53,35 @@ fetch('navbar.html')
 
     // Toggle function
     const toggleTheme = () => {
-      body.classList.toggle('dark');
-      const isDark = body.classList.contains('dark');
-
-      if (isDark) {
-        localStorage.setItem('theme', 'dark');
-      } else {
-        localStorage.setItem('theme', 'light');
-      }
+      const isDark = body.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
       updateThemeUI(isDark);
     };
 
-    // Add listeners
-    if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
-    if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
+    // Attach to both toggles
+    if (themeToggle) {
+      themeToggle.addEventListener('click', toggleTheme);
+    }
 
-    /* =========================
-       AUTH STATE
-    ========================= */
-    const isLoggedIn = localStorage.getItem('user_session') === 'active';
-    const loginBtns = document.querySelectorAll('.btn-login'); // Select all login buttons (desktop & mobile)
+    if (mobileThemeToggle) {
+      mobileThemeToggle.addEventListener('click', toggleTheme);
+    }
+  });
 
-    if (isLoggedIn && loginBtns.length > 0) {
-      loginBtns.forEach(btn => {
+/* =========================
+   FIREBASE AUTH STATE
+========================= */
+import('./auth.js').then(({ checkAuth, logout }) => {
+  checkAuth((user) => {
+    const loginBtn = document.querySelectorAll('.btn-login');
+
+    if (user) {
+      // User is logged in - show logout button
+      loginBtn.forEach(btn => {
         btn.textContent = 'Keluar';
         btn.href = '#';
         btn.addEventListener('click', (e) => {
           e.preventDefault();
-          localStorage.removeItem('user_session');
           localStorage.removeItem('user_email');
           window.location.reload();
         });

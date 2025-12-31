@@ -19,6 +19,14 @@
   <!-- AUTO NAVBAR -->
   <div id="navbar"></div>
 
+  <!-- AUTH CHECK -->
+  <script type="module">
+    import { checkAuth } from './js/auth.js';
+    checkAuth((user) => {
+      if (!user) window.location.href = 'login.html';
+    });
+  </script>
+
   <!-- ARTICLE HEADER -->
   <header class="hero" style="padding: 4rem 2rem 2rem; min-height: auto;">
     <h1>Kumpulan Artikel</h1>

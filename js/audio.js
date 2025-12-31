@@ -1,38 +1,78 @@
+// Category Definitions
+const audioCategories = [
+  { id: 'all', name: 'Semua', icon: '🎵' },
+  { id: 'sirah', name: 'Sirah Nabawiyah', icon: '📜' },
+  { id: 'aqidah', name: 'Aqidah', icon: '☪️' },
+  { id: 'fiqih', name: 'Fiqih', icon: '📖' },
+  { id: 'hadits', name: 'Hadits', icon: '📿' },
+  { id: 'tafsir', name: 'Tafsir', icon: '🕌' }
+];
+
+// Audio Tracks with Categories
 const tracks = [
   {
-    title: 'Hadits 1: Niat dan Ikhlas',
+    title: 'Kelahiran Rasulullah SAW',
     author: 'Ustadz Abdullah Roy',
+    category: 'sirah',
     src: 'assets/audio/sample.mp3',
     color: 'linear-gradient(135deg, #10b981, #059669)'
   },
   {
-    title: 'Hadits 2: Rukun Islam & Iman',
+    title: 'Hijrah ke Madinah',
     author: 'Ustadz Abdullah Roy',
+    category: 'sirah',
     src: 'assets/audio/sample.mp3',
     color: 'linear-gradient(135deg, #3b82f6, #2563eb)'
   },
   {
-    title: 'Hadits 3: Rukun Islam',
+    title: 'Tauhid Rububiyah',
     author: 'Ustadz Abdullah Roy',
+    category: 'aqidah',
     src: 'assets/audio/sample.mp3',
     color: 'linear-gradient(135deg, #f59e0b, #d97706)'
   },
   {
-    title: 'Hadits 4: Takdir Manusia',
+    title: 'Rukun Iman',
     author: 'Ustadz Abdullah Roy',
+    category: 'aqidah',
     src: 'assets/audio/sample.mp3',
     color: 'linear-gradient(135deg, #8b5cf6, #7c3aed)'
   },
   {
-    title: 'Hadits 5: Bid\'ah dalam Agama',
+    title: 'Thaharah dan Wudhu',
     author: 'Ustadz Abdullah Roy',
+    category: 'fiqih',
     src: 'assets/audio/sample.mp3',
     color: 'linear-gradient(135deg, #ec4899, #db2777)'
+  },
+  {
+    title: 'Hadits 1: Niat dan Ikhlas',
+    author: 'Ustadz Abdullah Roy',
+    category: 'hadits',
+    src: 'assets/audio/sample.mp3',
+    color: 'linear-gradient(135deg, #10b981, #059669)'
+  },
+  {
+    title: 'Hadits 40: Zuhud',
+    author: 'Ustadz Abdullah Roy',
+    category: 'hadits',
+    src: 'assets/audio/sample.mp3',
+    color: 'linear-gradient(135deg, #3b82f6, #2563eb)'
+  },
+  {
+    title: 'Tafsir Al-Fatihah',
+    author: 'Ustadz Abdullah Roy',
+    category: 'tafsir',
+    src: 'assets/audio/sample.mp3',
+    color: 'linear-gradient(135deg, #f59e0b, #d97706)'
   }
 ];
 
+
 let currentIndex = 0;
 let isPlaying = false;
+let currentCategory = 'all'; // Track selected category
+let filteredTracks = tracks; // Tracks to display
 
 // DOM Elements
 const audio = document.getElementById('audioElement');
@@ -48,17 +88,54 @@ const albumArt = document.getElementById('albumArt');
 const audioList = document.getElementById('audioList');
 const trackCount = document.getElementById('trackCount');
 const visualizer = document.getElementById('visualizer');
+const categoryTabs = document.getElementById('categoryTabs');
 
 // Initialize
 function initPlayer() {
-  renderPlaylist();
+  renderCategoryTabs();
+  filterTracksByCategory('all');
   loadTrack(currentIndex);
-  trackCount.textContent = `${tracks.length} Trek`;
+}
+
+
+// Render Category Tabs
+function renderCategoryTabs() {
+  categoryTabs.innerHTML = '';
+  audioCategories.forEach(category => {
+    const btn = document.createElement('button');
+    btn.className = 'category-btn';
+    if (category.id === currentCategory) {
+      btn.classList.add('active');
+    }
+    btn.innerHTML = `<span>${category.icon}</span><span>${category.name}</span>`;
+    btn.addEventListener('click', () => filterTracksByCategory(category.id));
+    categoryTabs.appendChild(btn);
+  });
+}
+
+// Filter Tracks by Category
+function filterTracksByCategory(categoryId) {
+  currentCategory = categoryId;
+
+  if (categoryId === 'all') {
+    filteredTracks = tracks;
+  } else {
+    filteredTracks = tracks.filter(track => track.category === categoryId);
+  }
+
+  currentIndex = 0;
+  renderCategoryTabs();
+  renderPlaylist();
+  trackCount.textContent = `${filteredTracks.length} Trek`;
+
+  if (filteredTracks.length > 0) {
+    loadTrack(currentIndex);
+  }
 }
 
 // Load Track
 function loadTrack(index) {
-  const track = tracks[index];
+  const track = filteredTracks[index];
   trackTitle.textContent = track.title;
   trackAuthor.textContent = track.author;
   audio.src = track.src;
@@ -79,7 +156,7 @@ function loadTrack(index) {
 // Render Playlist
 function renderPlaylist() {
   audioList.innerHTML = '';
-  tracks.forEach((track, index) => {
+  filteredTracks.forEach((track, index) => {
     const item = document.createElement('div');
     item.className = 'audio-item';
     item.innerHTML = `
@@ -127,13 +204,13 @@ function updatePlayButton() {
 }
 
 function nextTrack() {
-  currentIndex = (currentIndex + 1) % tracks.length;
+  currentIndex = (currentIndex + 1) % filteredTracks.length;
   loadTrack(currentIndex);
   playAudio();
 }
 
 function prevTrack() {
-  currentIndex = (currentIndex - 1 + tracks.length) % tracks.length;
+  currentIndex = (currentIndex - 1 + filteredTracks.length) % filteredTracks.length;
   loadTrack(currentIndex);
   playAudio();
 }

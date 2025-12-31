@@ -816,6 +816,42 @@ body.dark .glass-card {
   font-size: 2rem;
 }
 
+
+/* Category Tabs */
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0 0 1rem 0;
+  border-bottom: 1px solid var(--gray-200);
+  margin-bottom: 1rem;
+}
+
+.category-btn {
+  padding: 0.5rem 1rem;
+  background: var(--gray-100);
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--gray-800);
+}
+
+.category-btn:hover {
+  background: var(--gray-200);
+  transform: translateY(-1px);
+}
+
+.category-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
 /* Playlist Styles */
 .playlist-header {
   display: flex;
