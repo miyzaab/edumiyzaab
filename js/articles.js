@@ -1,7 +1,7 @@
 // Fetch articles from JSON file (Decap CMS compatible)
 async function getArticles() {
   try {
-    const response = await fetch('data/articles.json');
+    const response = await fetch('data/posts.json');
     if (!response.ok) throw new Error('Failed to fetch articles');
     const data = await response.json();
     return data.articles;

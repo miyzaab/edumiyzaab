@@ -10,7 +10,8 @@ collections:
     files:
       - name: "article_data"
         label: "Data Artikel"
-        file: "data/articles.json"
+        file: "data/posts.json"
+        format: json
         fields:
           - label: "Daftar Artikel"
             name: "articles"
