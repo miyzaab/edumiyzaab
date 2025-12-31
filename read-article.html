@@ -51,46 +51,23 @@
     const container = document.getElementById('articleContent');
 
     async function loadArticleContent() {
-      let articleList = [];
-
-      // Coba load dari CMS dulu
-      try {
-        const response = await fetch('/content/articles/index.json');
-        if (response.ok) {
-          articleList = await response.json();
-        }
-      } catch (e) {
-        console.log('CMS not available');
-      }
-
-      // Fallback ke data lama
-      if (articleList.length === 0 && typeof articles !== 'undefined') {
-        articleList = articles;
-      }
+      // Fetch data
+      const articles = await getArticles();
 
       // Find article
-      const article = articleList.find(a => a.id === id);
+      const article = articles.find(a => a.id === id);
 
       if (article) {
         document.title = `${article.title} – miyzaab edu`;
 
-        // Convert markdown to HTML if needed
-        let content = article.content || '';
-        // Simple markdown conversion for headers
-        content = content.replace(/^## (.*$)/gm, '<h2>$1</h2>');
-        content = content.replace(/^### (.*$)/gm, '<h3>$1</h3>');
-        content = content.replace(/\n\n/g, '</p><p>');
-        content = content.replace(/^> (.*$)/gm, '<blockquote>$1</blockquote>');
-        if (!content.startsWith('<')) content = '<p>' + content + '</p>';
-
         container.innerHTML = `
               <div class="article-meta">
                   <span class="author">${article.author}</span> • <span class="date">${article.date}</span>
-                  <a href="article.html" style="float: right; text-decoration: none; color: var(--primary);">← Kembali</a>
+                  <a href="index.html" style="float: right; text-decoration: none; color: var(--primary);">← Kembali</a>
               </div>
               <h1>${article.title}</h1>
               <div class="article-thumb ${article.thumb}" style="width: 100%; height: 300px; border-radius: 1rem; margin-bottom: 2rem;"></div>
-              ${content}
+              ${article.content}
           `;
       } else {
         container.innerHTML = `

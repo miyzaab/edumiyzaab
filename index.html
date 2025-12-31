@@ -13,7 +13,6 @@
   <link rel="stylesheet" href="css/style.css?v=6">
   <link rel="stylesheet" href="css/components.css?v=6">
   <link rel="stylesheet" href="css/dark.css?v=6">
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 
 <body data-page="index">
@@ -42,7 +41,7 @@
     <h1 class="animate-on-scroll">Belajar Islam dengan Mudah dan Sistematis</h1>
     <p class="animate-on-scroll">
       Artikel ilmiah, audio pelajaran, dan latihan soal
-      berdasarkan Al-Qur’an dan Sunnah.
+      berdasarkan Al-Qur'an dan Sunnah.
     </p>
   </section>
 
@@ -99,29 +98,15 @@
     </div>
   </section>
 
+  <script src="js/articles.js"></script>
   <script>
-    // Render articles - CMS first, fallback to legacy
-    document.addEventListener('DOMContentLoaded', async () => {
+    // Render articles directly when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
       const container = document.getElementById('articlesContainer');
-      let articleList = [];
 
-      // Coba load dari CMS
-      try {
-        const response = await fetch('/content/articles/index.json');
-        if (response.ok) {
-          articleList = await response.json();
-        }
-      } catch (e) {
-        console.log('CMS not available, using legacy data');
-      }
-
-      // Fallback ke data lama
-      if (articleList.length === 0 && typeof articles !== 'undefined') {
-        articleList = articles;
-      }
-
-      if (articleList.length > 0) {
-        const latestArticles = articleList.slice(0, 3);
+      // Check if articles variable exists (from js/articles.js)
+      if (typeof articles !== 'undefined' && articles.length > 0) {
+        const latestArticles = articles.slice(0, 3); // Get first 3
 
         container.innerHTML = latestArticles.map((article, index) => `
           <article class="article-card animate-on-scroll" style="transition-delay: ${index * 0.1}s">
@@ -133,12 +118,13 @@
               <a href="read-article.html?id=${article.id}">
                 <h3>${article.title}</h3>
               </a>
-              <p>${(article.content || '').replace(/<[^>]*>?/gm, '').substring(0, 100)}...</p>
+              <p>${article.content.replace(/<[^>]*>?/gm, '').substring(0, 100)}...</p>
             </div>
           </article>
         `).join('');
       } else {
         container.innerHTML = '<p>Belum ada artikel.</p>';
+        console.error('Artikel tidak ditemukan. Pastikan js/articles.js dimuat.');
       }
     });
   </script>
@@ -253,20 +239,9 @@
   </footer>
 
 
-  <script src="js/articles.js"></script>
   <script src="js/navbar.js"></script>
   <script src="js/animations.js"></script>
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
+
 </body>
 
 </html>
