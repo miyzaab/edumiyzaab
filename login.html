@@ -30,6 +30,10 @@
         <input type="password" placeholder="••••••••" required>
 
         <button type="submit" class="btn-primary full">Masuk</button>
+
+        <div style="text-align: right; margin-top: 0.75rem;">
+          <a href="forgot-password.html" style="font-size: 0.85rem; color: #666;">Lupa Password?</a>
+        </div>
       </form>
 
       <div style="text-align: center; margin: 1.5rem 0; color: #9ca3af; font-size: 0.9rem;">
@@ -84,17 +88,29 @@
       const email = emailInput.value.trim();
       const password = passwordInput.value;
 
+      console.log('Attempting login with:', email);
+
       // Disable button and show loading
       submitBtn.disabled = true;
       submitBtn.textContent = 'Memproses...';
 
-      // Try to login
-      const result = await login(email, password);
+      try {
+        // Try to login
+        const result = await login(email, password);
+        console.log('Login Result:', result);
 
-      if (result.success) {
-        window.location.href = 'index.html';
-      } else {
-        alert(result.error);
+        if (result.success) {
+          console.log('Login success, redirecting...');
+          window.location.href = 'index.html';
+        } else {
+          console.error('Login Failed:', result.error);
+          alert('Login gagal: ' + result.error);
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Masuk';
+        }
+      } catch (err) {
+        console.error('Unexpected Login Error:', err);
+        alert('Terjadi kesalahan sistem: ' + err.message);
         submitBtn.disabled = false;
         submitBtn.textContent = 'Masuk';
       }

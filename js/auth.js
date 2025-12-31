@@ -7,7 +7,8 @@ import {
   onAuthStateChanged,
   updateProfile,
   GoogleAuthProvider,
-  signInWithPopup
+  signInWithPopup,
+  sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 // Register new user
@@ -42,14 +43,42 @@ export async function login(email, password) {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     return { success: true, user: userCredential.user };
   } catch (error) {
+    console.error('Firebase Login Error:', error.code, error.message);
     let errorMessage = 'Login gagal';
 
-    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
       errorMessage = 'Email atau password salah';
     } else if (error.code === 'auth/invalid-email') {
       errorMessage = 'Format email tidak valid';
     } else if (error.code === 'auth/too-many-requests') {
       errorMessage = 'Terlalu banyak percobaan. Coba lagi nanti';
+    } else if (error.code === 'auth/network-request-failed') {
+      errorMessage = 'Koneksi internet bermasalah';
+    } else {
+      errorMessage = 'Error: ' + error.message;
+    }
+
+    return { success: false, error: errorMessage };
+  }
+}
+
+// Reset password
+export async function resetPassword(email) {
+  try {
+    console.log('Attempting to send reset email to:', email);
+    await sendPasswordResetEmail(auth, email);
+    console.log('Reset email sent successfully');
+    return { success: true };
+  } catch (error) {
+    console.error('Reset Password Error:', error.code, error.message);
+    let errorMessage = 'Gagal mengirim email reset';
+
+    if (error.code === 'auth/user-not-found') {
+      errorMessage = 'Email tidak terdaftar di sistem';
+    } else if (error.code === 'auth/invalid-email') {
+      errorMessage = 'Format email tidak valid';
+    } else {
+      errorMessage = 'Error: ' + error.message;
     }
 
     return { success: false, error: errorMessage };
