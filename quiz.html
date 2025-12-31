@@ -9,9 +9,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz – miyzaab edu</title>
 
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/dark.css">
+  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/components.css?v=4">
+  <link rel="stylesheet" href="css/dark.css?v=4">
   <script src="js/protect.js"></script>
 </head>
 
@@ -19,14 +19,6 @@
 
   <!-- AUTO NAVBAR (SATU-SATUNYA) -->
   <div id="navbar"></div>
-
-  <!-- AUTH CHECK -->
-  <script type="module">
-    import { checkAuth } from './js/auth.js';
-    checkAuth((user) => {
-      if (!user) window.location.href = 'login.html';
-    });
-  </script>
 
   <!-- QUIZ -->
   <main class="quiz-container">

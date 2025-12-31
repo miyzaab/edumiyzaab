@@ -22,8 +22,15 @@
   <!-- AUTH CHECK -->
   <script type="module">
     import { checkAuth } from './js/auth.js';
+
+    let authChecked = false;
     checkAuth((user) => {
-      if (!user) window.location.href = 'login.html';
+      if (!authChecked) {
+        authChecked = true;
+        if (!user) {
+          window.location.href = 'login.html';
+        }
+      }
     });
   </script>
 
