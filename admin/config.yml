@@ -1,10 +1,7 @@
 backend:
-  backend:
-  name: github
-  repo: miyzaab/edumiyzaab   
+  name: git-gateway
   branch: main
-  auth_endpoint: https://decapcms-github-oauth.netlify.app/auth
-  
+
 media_folder: "assets/images"
 
 collections:
